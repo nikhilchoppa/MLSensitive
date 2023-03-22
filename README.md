@@ -9,3 +9,4 @@ If you look at the last decades, the markets are getting more and more influence
   - Plot complex charts
   - Effectiveness
 
+https://docs.google.com/document/d/1UXvbnfJk0oSzkn_lJ_ez_ZUm7QBzxn_sSHYImB8wlMY/edit?usp=sharing
