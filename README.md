@@ -13,12 +13,12 @@ https://docs.google.com/document/d/1UXvbnfJk0oSzkn_lJ_ez_ZUm7QBzxn_sSHYImB8wlMY/
 
 ## Create an Environment
 
-`conda create -n mlenv python=3.10 anaconda`
-`conda activate mlenv`
-`conda install pandas matplotlib`
-`conda install tensorflow`
-`conda install transformers`
-Install Pytorch according to your System configarations:`https://pytorch.org/get-started/locally/`
-Now your environment is somplete settled
-Add this Environment to the Jupyter Notebook
-To do that you need to install ipykernel `python -m ipykernel install --user --name mlenv --display-name "ML environment"`
+- `conda create -n mlenv python=3.10 anaconda`
+- `conda activate mlenv`
+- `conda install pandas matplotlib`
+- `conda install tensorflow`
+- `conda install transformers`
+- Install Pytorch according to your System configarations:`https://pytorch.org/get-started/locally/`
+- Now your environment is somplete settled
+- Add this Environment to the Jupyter Notebook
+- To do that you need to install ipykernel `python -m ipykernel install --user --name mlenv --display-name "ML environment"`
