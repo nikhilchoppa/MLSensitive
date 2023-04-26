@@ -34,7 +34,7 @@ def get_tweets(api, query, count=10000):
     tweets = []
 
     # Get the datetime for 5 hours ago
-    since_datetime = datetime.now() - timedelta(hours=5)
+    since_datetime = datetime.now() - timedelta(hours=6)
     since_str = since_datetime.strftime("%Y-%m-%d")
 
     # Find a tweet from around 5 hours ago
@@ -64,22 +64,28 @@ def load_model():
 
 
 # Function to perform sentiment analysis
+# Function to perform sentiment analysis
 def sentiment_analysis(query):
     api = create_api()
     tweets = get_tweets(api, query)
     model, tokenizer = load_model()
 
-    tweet_sentiments = {'positive': 0, 'negative': 0}
+    tweet_sentiments = {'positive': 0, 'negative': 0, 'neutral': 0}
+    neutral_threshold = 0.05
 
     # Classify tweet sentiment using the model
     for tweet in tweets:
         inputs = tokenizer.encode_plus(tweet['text'], return_tensors='tf', padding=True, truncation=True)
         outputs = model(inputs)
-        label = np.argmax(outputs.logits.numpy(), axis=1)[0]
-        if label == 1:
+        logits = outputs.logits.numpy()
+        probs = tf.nn.softmax(logits, axis=1).numpy()[0]
+
+        if probs[1] - probs[0] > neutral_threshold:
             tweet_sentiments['positive'] += 1
-        else:
+        elif probs[0] - probs[1] > neutral_threshold:
             tweet_sentiments['negative'] += 1
+        else:
+            tweet_sentiments['neutral'] += 1
 
     # Calculate sentiment percentages
     tweet_sentiments_percentages = {k: v / len(tweets) * 100 for k, v in tweet_sentiments.items()}
@@ -100,7 +106,7 @@ def sentiment_analysis(query):
 if __name__ == "__main__":
     query = input("Enter the stock or crypto symbol: ")
     sentiment_analysis(query)
-    print("Note: This sentiment analysis might not accurately "
+    print("Note: This sentiment analysis might not accurately \n"
           "capture sarcasm or nuanced expressions of sentiment.")
 
 

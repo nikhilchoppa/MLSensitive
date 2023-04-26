@@ -36,16 +36,16 @@ This code performs sentiment analysis on tweets containing a given stock or cryp
 
 4. Define the `clean_tweet()` function to remove mentions, URLs, and non-alphanumeric characters from the tweet text.
 
-5. Define the get_tweets() function to fetch tweets using the Twitter API:
+5. Define the `get_tweets()` function to fetch tweets using the Twitter API:
 
     - Determine the datetime for 5 hours ago.
     - Find a tweet from around 5 hours ago. 
     - Fetch tweets from the past 5 hours containing the query (stock or crypto symbol). 
     - Clean and store the fetched tweets.
 
-6. Define the load_model() function to load the pre-trained DistilBERT model and tokenizer for sentiment analysis.
+6. Define the `load_model()` function to load the pre-trained DistilBERT model and tokenizer for sentiment analysis.
 
-7. Define the sentiment_analysis() function:
+7. Define the `sentiment_analysis()` function:
 
     - Set up the Twitter API and fetch tweets using the query.
     - Load the DistilBERT model and tokenizer.
