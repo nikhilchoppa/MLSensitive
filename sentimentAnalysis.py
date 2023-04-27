@@ -207,7 +207,7 @@ print(f'Neutral: {neutral_percentage:.2f}%')
 # Create the pie chart
 sizes = [positive_percentage, negative_percentage, neutral_percentage]
 labels = ['Positive', 'Negative', 'Neutral']
-colors = ['blue', '#FF4500', '#B0C4DE']
+colors = ['#33FF90', '#FF4500', '#B0C4DE']
 plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
 plt.axis('equal')
 

@@ -1,6 +1,6 @@
 import linearRegression
 import macd
-import sentimentalAnalysis
+import sentimentAnalysisPretrainedBert
 
 def main():
     print("Main")
