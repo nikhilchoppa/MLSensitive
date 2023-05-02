@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cb64ae-33b9-410f-b140-6d2c20c6165d" name="Changes" comment="Regression and MACD finished">
-      <change beforePath="$PROJECT_DIR$/data/MSFT.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/TSLA.csv" beforeDir="false" />
+    <list default="true" id="d7cb64ae-33b9-410f-b140-6d2c20c6165d" name="Changes" comment="Added user input loop to main">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +128,7 @@
       <workItem from="1682083609895" duration="19283000" />
       <workItem from="1683033627295" duration="126000" />
       <workItem from="1683033754481" duration="627000" />
-      <workItem from="1683034434336" duration="6209000" />
+      <workItem from="1683034434336" duration="6300000" />
     </task>
     <task id="LOCAL-00001" summary="project update">
       <created>1679849893620</created>
@@ -179,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683040677534</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added user input loop to main">
+      <created>1683040713925</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683040713925</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,7 +207,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="project update" />
     <MESSAGE value="Regression and MACD finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="Regression and MACD finished" />
+    <MESSAGE value="Added user input loop to main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added user input loop to main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

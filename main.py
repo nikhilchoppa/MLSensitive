@@ -6,14 +6,11 @@ import yfinance as yf
 
 def main():
 
-    # Please create a user input loop that asks users to enter in stock data with start and end dates
     running = True
     while running:
-        # Ask the user to enter in a stock ticker
+        # User input
         stock = input("Please enter in a stock to search: ")
-        # Ask the user to enter in a start date
         start_date = input("Please enter in a start date (YYYY-MM-DD): ")
-        # Ask the user to enter in an end date
         end_date = input("Please enter in an end date (YYYY-MM-DD): ")
 
         # Read and parse the stock data
