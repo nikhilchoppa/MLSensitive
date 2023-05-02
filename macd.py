@@ -24,12 +24,12 @@ def macd_pred(csv_file_path):
 
     # Print the cumulative returns
     final_return = df['Cumulative_Returns'].iloc[-1]
-    print(f"Cumulative Returns: {final_return:.2f}")
+    print(f"MACD Cumulative Returns: {final_return:.2f}")
 
     # Make investment decision based on final return
     if final_return > 1:
-        print("Invest in the stock.\n")
+        print("This stock has good returns\n")
     else:
-        print("Do not invest in the stock.\n")
+        print("This stock has poor returns.\n")
 
 

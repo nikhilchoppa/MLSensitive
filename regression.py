@@ -159,9 +159,9 @@ def regression_pred(dataset):
     print(f"{num_years} Year Regression Analysis: ", sum_pct_change)
     # Classify the stock as "good" or "poor" performing based on the trend
     if sum_pct_change > 0:
-        print("The stock is performing well.\n")
+        print("The stock is performing well over time.\n")
     else:
-        print("The stock is performing poorly.\n")
+        print("The stock is performing poorly over time.\n")
 
 
 
