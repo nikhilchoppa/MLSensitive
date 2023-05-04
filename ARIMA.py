@@ -17,7 +17,6 @@ import math
 ticker_symbol = input("Enter the Stock Symbol:")
 tesla_data = yf.Ticker(ticker_symbol)
 
-# history function helps to extract stock information.
 # setting period parameter to max to get information for the maximum amount of time.
 tsla_data = tesla_data.history(period='max')
 
@@ -26,10 +25,13 @@ tsla_data = tsla_data.asfreq('D')
 tsla_data.reset_index(inplace=True)
 
 # display the first five rows
-tsla_data.head()
+head_tsla =tsla_data.head()
+print(head_tsla)
+
 tsla_data.set_index("Date", inplace=True)
+
 # Visualize the stock’s daily closing price.
- #plot close price
+#plot close price
 plt.figure(figsize=(10,6))
 plt.grid(True)
 plt.xlabel('Date')
@@ -43,8 +45,11 @@ df_close = tsla_data['Close']
 df_close = df_close.ffill()
 df_close.plot(kind='kde')
 plt.show()
-print("before stationary test")
 
+
+"""Because time series analysis only works with stationary data, we must first determine whether a series is stationary.
+One of the most widely used statistical tests is the Dickey-Fuller test. The series becomes stationary if both the mean 
+and standard deviation are flat lines (constant mean and constant variance)."""
 def test_stationarity(timeseries):
     #Determing rolling statistics
     rolmean = timeseries.rolling(12).mean()
@@ -58,25 +63,24 @@ def test_stationarity(timeseries):
     plt.show(block=False)
     print("Results of dickey fuller test")
     adft = adfuller(timeseries,autolag='AIC')
-    # output for dft will give us without defining what the values are.
-    #hence we manually write what values does it explains using a for loop
     output = pd.Series(adft[0:4],index=['Test Statistics','p-value','No. of lags used','Number of observations used'])
     for key,values in adft[4].items():
         output['critical value (%s)'%key] =  values
     print(output)
     return adft[0:4], rolmean, rolstd
 test_stationarity(df_close)
-print("after stationary test")
 
-#To separate the trend and the seasonality from a time series,
-# we can decompose the series using the following code.
+
+#To separate the trend and the seasonality from a time series,we can decompose the series
 result = seasonal_decompose(df_close, model='multiplicative', period = 30)
 
 fig = result.plot()
 fig.set_size_inches(16, 9)
 
-#if not stationary then eliminate trend
-#Eliminate trend
+"""To reduce the magnitude of the values and the growing trend in the series, we first take a log of the series. 
+We then calculate the rolling average of the series after obtaining the log of the series. A rolling average is computed by
+ taking data from the previous 12 months and calculating a mean consumption value at each subsequent point in the series."""
+
 from pylab import rcParams
 rcParams['figure.figsize'] = 10, 6
 df_log = np.log(df_close)
@@ -91,8 +95,6 @@ plt.show()
 
 # DEVELOPING ARIMA MODEL :
 
-
-#split data into train and training set
 train_data, test_data = df_log[3:int(len(df_log)*0.9)], df_log[int(len(df_log)*0.9):]
 train_data_original_scale = np.exp(train_data)
 test_data_original_scale = np.exp(test_data)
@@ -105,7 +107,7 @@ plt.plot(train_data_original_scale, 'orange', label='Train data')
 plt.plot(test_data_original_scale, 'blue', label='Test data')
 plt.legend()
 
-#auto arima
+#Auto arima
 model_autoARIMA = auto_arima(train_data, start_p=0, start_q=0,
                       test='adf',       # use adftest to find optimal 'd'
                       max_p=3, max_q=3, # maximum p and q
@@ -124,14 +126,13 @@ model_autoARIMA.plot_diagnostics(figsize=(15,8))
 plt.show()
 
 #Modeling
-# Build Model
 model = ARIMA(train_data, order = (1,1,2))
 fitted = model.fit()
 print(fitted.summary())
 
 # Forecast
 forecast = fitted.forecast(len(test_data), alpha = 0.05)
-# Make as pandas series
+
 fc_series = pd.Series(np.exp(forecast), index=test_data_original_scale.index)
 plt.figure(figsize=(10,5), dpi=100)
 plt.plot(train_data_original_scale, label='Training Data')
