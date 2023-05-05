@@ -7,13 +7,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Embedding, GlobalAveragePooling1D
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.losses import SparseCategoricalCrossentropy
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.python.keras.preprocessing.sequence import pad_sequences
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense, Embedding, GlobalAveragePooling1D
+from tensorflow.python.keras.optimizers import Adam
+from tensorflow.python.keras.losses import SparseCategoricalCrossentropy
+from tensorflow.python.keras.preprocessing.text import Tokenizer
+from tensorflow.python.keras.callbacks import EarlyStopping
 
 API_KEY = 'XO8NmVeoGjHQh0TLVamD6ABmO'
 API_SECRET_KEY = 'aXYlbOAjis1eKPnXEhCU9iDQNzdYuMcJDXRHREA4o3ukn1ZKvJ'

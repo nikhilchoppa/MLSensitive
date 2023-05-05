@@ -4,9 +4,13 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, LSTM
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense, LSTM
 from sklearn.ensemble import RandomForestRegressor
+
+# TODO: Might be best to just import entire package
+from tensorflow.python import keras
+
 
 # Load and preprocess the data
 tesla_data = yf.Ticker('TSLA')

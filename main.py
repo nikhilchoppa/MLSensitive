@@ -1,11 +1,12 @@
-import csv
+import os
+import yfinance as yf
 import regression
 import macd
-import sentimentAnalysisPretrainedBert
-import yfinance as yf
+import svm
 
 def main():
 
+    stock_data = ""
     running = True
     while running:
         # User input
@@ -21,11 +22,19 @@ def main():
 
         # Put data into csv files located at data/filename.csv, for regression and macd models
         stock_data.to_csv(f"data/{stock}.csv", index=False)
-        regression_data = f"data/{stock}.csv"
+        stock_data = f"data/{stock}.csv"
+
+        # if os.path.exists():
 
         # Models
-        regression.regression_pred(regression_data)  # Pass the csv file to objects
-        macd.macd_pred(regression_data)
+        regression.regression_pred(stock_data)  # Pass the csv file to objects
+        macd.macd_pred(stock_data)
+        svm.svm_pred(stock_data)
+
+
+
+    # delete the file when program ends
+    os.remove(stock_data)
 
 
 if __name__ == "__main__":
