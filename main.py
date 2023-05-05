@@ -7,6 +7,7 @@ import svm
 def main():
 
     stock_data = ""
+    stock_data_list = []
     running = True
     while running:
         # User input
@@ -23,18 +24,17 @@ def main():
         # Put data into csv files located at data/filename.csv, for regression and macd models
         stock_data.to_csv(f"data/{stock}.csv", index=False)
         stock_data = f"data/{stock}.csv"
-
-        # if os.path.exists():
+        if stock_data not in stock_data_list:
+            stock_data_list.append(stock_data)
 
         # Models
         regression.regression_pred(stock_data)  # Pass the csv file to objects
         macd.macd_pred(stock_data)
         svm.svm_pred(stock_data)
 
-
-
-    # delete the file when program ends
-    os.remove(stock_data)
+    # Delete the files when program ends
+    for s_data in stock_data_list:
+        os.remove(s_data)
 
 
 if __name__ == "__main__":

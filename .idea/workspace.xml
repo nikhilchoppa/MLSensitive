@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7cb64ae-33b9-410f-b140-6d2c20c6165d" name="Changes" comment="Added user input loop to main">
-      <change afterPath="$PROJECT_DIR$/data/MSFT.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/TSLA.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/svm.py" afterDir="false" />
+    <list default="true" id="d7cb64ae-33b9-410f-b140-6d2c20c6165d" name="Changes" comment="SVM and import fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/random_forest.py" beforeDir="false" afterPath="$PROJECT_DIR$/random_forest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/regression.py" beforeDir="false" afterPath="$PROJECT_DIR$/regression.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sentimentAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/sentimentAnalysis.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +135,7 @@
       <workItem from="1683215971158" duration="524000" />
       <workItem from="1683216509946" duration="1110000" />
       <workItem from="1683295860473" duration="1749000" />
-      <workItem from="1683297864454" duration="1064000" />
+      <workItem from="1683297864454" duration="1723000" />
     </task>
     <task id="LOCAL-00001" summary="project update">
       <created>1679849893620</created>
@@ -206,7 +200,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683040787327</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="SVM and import fixes">
+      <created>1683298966452</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683298966452</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,7 +229,8 @@
     <MESSAGE value="project update" />
     <MESSAGE value="Regression and MACD finished" />
     <MESSAGE value="Added user input loop to main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added user input loop to main" />
+    <MESSAGE value="SVM and import fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="SVM and import fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
