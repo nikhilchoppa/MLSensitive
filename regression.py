@@ -6,6 +6,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression, ElasticNet
 from sklearn import linear_model
 
+
 def regression_pred(dataset):
     # Read in data
     data = pd.read_csv(dataset)
@@ -55,15 +56,16 @@ def regression_pred(dataset):
     def calcVectorizedCost(x, y, theta):
         inner = np.dot(((x * theta) - y).T, (x * theta) - y)
         return inner / (2 * len(x))
+
     # print("Cost: ", calcVectorizedCost(X, Y, theta))
 
     # Calculate gradient descent
     np.gradient(calcVectorizedCost(X, Y, theta))
 
-
     '''
     Non-Linear Model 
     '''
+
     def generate_polynomial_features(X, degree):
         poly_features = PolynomialFeatures(degree=degree, include_bias=False)
         X_poly = poly_features.fit_transform(X)
@@ -95,11 +97,11 @@ def regression_pred(dataset):
     ''' 
     Non-Linear regression with Elastic Net
     '''
+
     def GeneratePolynomialFeatures(X, polydegree):
         poly = PolynomialFeatures(degree=polydegree)
         polynomial_x = poly.fit_transform(X)
         return polynomial_x
-
 
     # @param alpha: The weight of the regularization term
     # @param l1_ratio: The ratio of L1 regularization to L2 regularization
@@ -125,7 +127,6 @@ def regression_pred(dataset):
     # plt.legend()
     # plt.show()
 
-
     '''
     Plotting for multiple degree values
     '''
@@ -140,16 +141,15 @@ def regression_pred(dataset):
     #     plt.xlabel('Date')
     #     plt.ylabel('Average Daily Market Value')
     #
-    # plt.scatter(data['Date'], data['Average'], color='#1f77b4', label='Training Data')  # If this is in the loop, it replaces a legend value
-    # plt.legend(poly_degree_values)
-    # plt.show()
+    # plt.scatter(data['Date'], data['Average'], color='#1f77b4', label='Training Data')  # If this is in the loop,
+    # it replaces a legend value plt.legend(poly_degree_values) plt.show()
 
     '''
     Classifying as "good" or "poor" performing stock
     '''
     # Get number of years by the difference between the last date and the first date
     num_years = data['Date'].iloc[-1].year - data['Date'].iloc[0].year
-    recent_data = data.tail(252*num_years)
+    recent_data = data.tail(252 * num_years)
 
     # Compute the year-over-year percentage change in closing prices for each year
     yearly_pct_change = recent_data['Close'].pct_change(periods=252).groupby(recent_data['Date'].dt.year).mean()
@@ -161,6 +161,3 @@ def regression_pred(dataset):
         print("The stock is performing well over time.\n")
     else:
         print("The stock is performing poorly over time.\n")
-
-
-

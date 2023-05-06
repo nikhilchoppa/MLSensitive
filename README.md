@@ -58,3 +58,15 @@ This code performs sentiment analysis on tweets containing a given stock or cryp
 8. Define the main function to take user input (stock or crypto symbol) and call the sentiment_analysis() function. A note is also printed, reminding users that the sentiment analysis might not accurately capture sarcasm or nuanced expressions of sentiment.
 
 When executed, the code takes a stock or crypto symbol as input, fetches tweets containing that symbol from the past 5 hours, performs sentiment analysis using the DistilBERT model, and displays the sentiment percentages in the console and as a pie chart.
+
+## To Covert .py file to .ipynb
+
+Here are the steps to follow:
+
+Make sure you have jupytext installed on your system. If you don't have it installed, you can install it using the following command:
+
+`pip install jupytext`
+
+Run the following command to convert the Python file to a Jupyter Notebook:
+
+`jupytext --to notebook yourfile.py`

@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 def macd_pred(csv_file_path):
     # Read in the CSV file
     df = pd.read_csv(csv_file_path)
@@ -31,5 +32,3 @@ def macd_pred(csv_file_path):
         print("This stock has good returns\n")
     else:
         print("This stock has poor returns.\n")
-
-

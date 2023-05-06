@@ -3,15 +3,21 @@ import yfinance as yf
 import regression
 import macd
 import svm
+import investorAnalysis
+import sentimentAnalysis
+import sentimentAnalysisPretrainedBert
+import arima
+import garch
+import randomForest
+
 
 def main():
-
     stock_data = ""
     stock_data_list = []
     running = True
     while running:
         # User input
-        stock = input("Please enter in a stock to search: ")
+        stock = input("Please enter in a stock symbol to search: ")
         start_date = input("Please enter in a start date (YYYY-MM-DD): ")
         end_date = input("Please enter in an end date (YYYY-MM-DD): ")
 
@@ -31,8 +37,18 @@ def main():
         regression.regression_pred(stock_data)  # Pass the csv file to objects
         macd.macd_pred(stock_data)
         svm.svm_pred(stock_data)
+        investorAnalysis.get_recommendations(stock)
+        sentimentAnalysis.predict_sentiment(stock)
+        sentimentAnalysisPretrainedBert.sentiment_analysis(stock)
 
-    # Delete the files when program ends
+
+
+        # (Optional) Add a break condition to exit the loop
+        # choice = input("Enter 'q' to quit or press any other key to continue: ")
+        # if choice.lower() == 'q':
+        #     running = False
+
+    # Delete the files when the program ends
     for s_data in stock_data_list:
         os.remove(s_data)
 

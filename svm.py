@@ -18,6 +18,12 @@ def svm_pred(dataset):
 
     # Fit LinearSVC classifier
     clf = LinearSVC(max_iter=100000)
+
+    unique_labels = np.unique(y_train)
+    if len(unique_labels) < 2:
+        print("Not enough classes in the training data for the SVM classifier.")
+        return
+
     clf.fit(X_train, y_train)
 
     # Make predictions on test data

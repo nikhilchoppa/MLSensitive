@@ -1,41 +1,63 @@
 import pandas as pd
 import yfinance as yf
-import numpy as  np
-import pandas as p
 import requests
-
-
+import matplotlib.pyplot as plt
+from yfinance import ticker
 
 
 def get_recommendations(ticker):
     stock = yf.Ticker(ticker)
-    recommendations = []
-    for tick in ticker:
-        pre_url = 'https://query2.finance.yahoo.com/v10/finance/quoteSu'
-        post_url = ''
-        url = pre_url + post_url
-        r= requests.get(url)
-        if not r.ok:
-            recommendation = 6
-        try:
-            result = r.json()['quoteSummary']['result'][0]
-            recommendation = result['financialData']['recommendationMean']['fmt']
-        except:
-            recommendation=6
+    long_name = stock.info['longName']
 
-        recommendations.append(recommendation)
-        print('{} has an average recommendation of :'.format(tick),recommendation)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0'
+    }
 
-        dataframe = pd.DataFrame(list(zip(tick,recommendations)),columns=['Company','Recommendations'])
-        print(dataframe)
-        dataframe = dataframe.set_index('Company')
-        dataframe.to.csv('RecommendationTable.csv')
-        dataframe.sort_values(['Recommendations']).head(5)
-        dataframe['Recommendations'] = dataframe['Recommendations'].astype(float)
+    url = f'https://query2.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=recommendationTrend'
+    r = requests.get(url, headers=headers)
+    print(r)
 
-    return recommendations
+    if not r.ok:
+        print("Error fetching data.")
+        return
 
+    result = r.json()['quoteSummary']['result']
 
-ticker = "TSLA"
-recommendations = get_recommendations(ticker)
-print(recommendations)  # Show the most recent recommendations
+    if not result:
+        print(f"No recommendation data available for {long_name} ({ticker}).")
+        return
+
+    data = result[0]['recommendationTrend']['trend']
+
+    periods = []
+    strong_buys = []
+    buys = []
+    holds = []
+    sells = []
+    strong_sells = []
+
+    for trend in data:
+        periods.append(trend['period'])
+        strong_buys.append(trend['strongBuy'])
+        buys.append(trend['buy'])
+        holds.append(trend['hold'])
+        sells.append(trend['sell'])
+        strong_sells.append(trend['strongSell'])
+
+    dataframe = pd.DataFrame({
+        'Period': periods,
+        'Strong Buy': strong_buys,
+        'Buy': buys,
+        'Hold': holds,
+        'Sell': sells,
+        'Strong Sell': strong_sells
+    })
+
+    dataframe = dataframe.set_index('Period')
+    print(dataframe)
+
+    ax = dataframe.plot.bar(rot=0)
+    ax.set_title(f'{long_name} ({ticker}) Recommendation Trends')
+    ax.set_ylabel('Recommendation Counts')
+    plt.show()
+
