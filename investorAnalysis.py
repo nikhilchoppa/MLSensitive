@@ -15,7 +15,7 @@ def get_recommendations(ticker):
 
     url = f'https://query2.finance.yahoo.com/v10/finance/quoteSummary/{ticker}?modules=recommendationTrend'
     r = requests.get(url, headers=headers)
-    print(r)
+    # print(r)
 
     if not r.ok:
         print("Error fetching data.")
@@ -54,10 +54,21 @@ def get_recommendations(ticker):
     })
 
     dataframe = dataframe.set_index('Period')
-    print(dataframe)
+    # print(dataframe)
 
     ax = dataframe.plot.bar(rot=0)
     ax.set_title(f'{long_name} ({ticker}) Recommendation Trends')
     ax.set_ylabel('Recommendation Counts')
-    plt.show()
+    # plt.show()
+
+    # classify overall recommendation trend
+    total_recommendations = dataframe.sum(axis=1).sum()
+    total_buy_sell = dataframe['Buy'].sum() + dataframe['Sell'].sum()
+    total_strong_buy_sell = dataframe['Strong Buy'].sum() + dataframe['Strong Sell'].sum()
+    if total_strong_buy_sell >= total_buy_sell * 0.5:
+        print(f"{long_name} ({ticker}) is performing well based on recommendation trends.")
+        return 1
+    else:
+        print(f"{long_name} ({ticker}) is performing poorly based on recommendation trends.")
+        return 0
 

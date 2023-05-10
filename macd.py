@@ -30,5 +30,7 @@ def macd_pred(csv_file_path):
     # Make investment decision based on final return
     if final_return > 1:
         print("This stock has good returns\n")
+        return 1
     else:
         print("This stock has poor returns.\n")
+        return 0

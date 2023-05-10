@@ -155,9 +155,11 @@ def regression_pred(dataset):
     yearly_pct_change = recent_data['Close'].pct_change(periods=252).groupby(recent_data['Date'].dt.year).mean()
     sum_pct_change = yearly_pct_change.sum()
 
-    print(f"{num_years} Year Regression Analysis: ", sum_pct_change)
+    print(f"{num_years} Year High/Low Analysis: ", sum_pct_change)
     # Classify the stock as "good" or "poor" performing based on the trend
     if sum_pct_change > 0:
         print("The stock is performing well over time.\n")
+        return 1
     else:
         print("The stock is performing poorly over time.\n")
+        return 0

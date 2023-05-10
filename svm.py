@@ -17,7 +17,7 @@ def svm_pred(dataset):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Fit LinearSVC classifier
-    clf = LinearSVC(max_iter=100000)
+    clf = LinearSVC(max_iter=100000, random_state=42)
 
     unique_labels = np.unique(y_train)
     if len(unique_labels) < 2:
@@ -59,8 +59,9 @@ def svm_pred(dataset):
     # Determine overall performance
     n_well = len(data[data['Performance'] == 'Performing well'])
     n_poor = len(data[data['Performance'] == 'Performing poorly'])
-    if n_well / (n_well + n_poor) >= 0.75:
-        overall_performance = 'Performing well'
+    if n_well / (n_well + n_poor) >= 0.5:
+        print('SVM: Performing well. \n')
+        return 1
     else:
-        overall_performance = 'Performing poorly'
-    print('SVM Overall performance:', overall_performance)
+        print('SVM: Performing poorly. \n')
+        return 0
