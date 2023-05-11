@@ -82,7 +82,7 @@ def sentiment_analysis(query):
     title_sentiments_percentages = {k: v / len(titles) * 100 for k, v in title_sentiments.items()}
 
     # Print sentiment percentages
-    print("Sentiment Analysis of pre-trained DistilBERT Model for", query)
+    print("Reddit Sentiment Analysis of pre-trained DistilBERT Model for", query)
     for sentiment, percentage in title_sentiments_percentages.items():
         print(f"{sentiment.capitalize()}: {percentage:.2f}%")
 
@@ -90,8 +90,18 @@ def sentiment_analysis(query):
     plt.pie(title_sentiments_percentages.values(), labels=title_sentiments_percentages.keys(), autopct='%1.1f%%',
             startangle=90)
     plt.axis('equal')
-    plt.title(f"Sentiment Analysis of pre-trained DistilBERT Model for {query}")
+    plt.title(f"Reddit Sentiment Analysis of pre-trained DistilBERT Model for {query}")
     plt.show()
+
     print('\nNote: This sentiment analysis might not accurately capture sarcasm or nuanced expressions of sentiment.')
+
+    if title_sentiments['positive'] > title_sentiments['negative'] * 0.5:
+        print(f"Based on sentiment analysis, ({query}) is performing well.")
+        return 1
+    else:
+        print(f"Based on sentiment analysis, ({query}) is performing poorly.")
+        return 0
+
+
 
 

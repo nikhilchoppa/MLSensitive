@@ -54,8 +54,8 @@ def get_recommendations(ticker):
     # print(dataframe)
 
     ax = dataframe.plot.bar(rot=0)
-    ax.set_title(f'{ticker} ({ticker}) Recommendation Trends')
-    ax.set_ylabel('Recommendation Counts')
+    ax.set_title(f'({ticker}) Investor Recommendation Trends')
+    ax.set_ylabel('Investors Recommendation Counts')
     plt.show()
 
     # classify overall recommendation trend
@@ -63,8 +63,8 @@ def get_recommendations(ticker):
     total_buy_sell = dataframe['Buy'].sum() + dataframe['Sell'].sum()
     total_strong_buy_sell = dataframe['Strong Buy'].sum() + dataframe['Strong Sell'].sum()
     if total_strong_buy_sell >= total_buy_sell * 0.5:
-        print(f"{ticker} ({ticker}) is performing well based on investors recommendation trends.")
+        print(f"({ticker}) is performing well based on investors recommendation trends.")
         return 1
     else:
-        print(f"{ticker} ({ticker}) is performing poorly based on investors recommendation trends.")
+        print(f"({ticker}) is performing poorly based on investors recommendation trends.")
         return 0

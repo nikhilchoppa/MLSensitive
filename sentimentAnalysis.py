@@ -174,7 +174,7 @@ def sentiment_analysis_subreddit(subreddit_name):
     neutral_percentage = sentiments["neutral"] / total * 100
 
     # Print sentiment percentages
-    print(f'Sentiment Analysis of Self-Trained Model for r/{query}')
+    print(f'Reddit Sentiment Analysis of Self-Trained Model for {query}')
     print(f'Positive: {positive_percentage:.2f}%')
     print(f'Negative: {negative_percentage:.2f}%')
     print(f'Neutral: {neutral_percentage:.2f}%')
@@ -185,7 +185,15 @@ def sentiment_analysis_subreddit(subreddit_name):
     colors = ['#33FF90', '#FF4500', '#B0C4DE']
     plt.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
     plt.axis('equal')
-    plt.title(f"Sentiment Analysis of Self-Trained Model for {query}")
+    plt.title(f"Reddit Sentiment Analysis of Self-Trained Model for {query}")
     plt.show()
 
     print('\nNote: This sentiment analysis might not accurately capture sarcasm or nuanced expressions of sentiment.')
+
+    if positive_percentage > neutral_percentage * 0.5:
+        print(f"Based on Self-Trained sentiment analysis, ({query}) is performing well.")
+        return 1
+    else:
+        print(f"Based on Self-Trained sentiment analysis, ({query}) is performing poorly.")
+        return 0
+

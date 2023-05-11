@@ -68,11 +68,12 @@ def main():
         arima_result = arima.arima_pred(stock)
         garch_result = garch.garch_pred(stock)
         investor_analysis_result = investorAnalysis.get_recommendations(stock)
-        sentimentAnalysis.sentiment_analysis_subreddit(stock)
-        sentimentAnalysisPretrainedBert.sentiment_analysis(stock)
+        selfTrained_result = sentimentAnalysis.sentiment_analysis_subreddit(stock)
+        bert_result = sentimentAnalysisPretrainedBert.sentiment_analysis(stock)
 
         # Add all results to list
-        results = [regression_result, macd_result, svm_result, arima_result, garch_result, investor_analysis_result]
+        results = [regression_result, macd_result, svm_result, arima_result, garch_result, investor_analysis_result,
+                   selfTrained_result, bert_result]
         num_ones = sum(result == 1 for result in results)
         num_zeros = sum(result == 0 for result in results)
 
