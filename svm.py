@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 
+
 def svm_pred(dataset):
     # Load data from CSV file
     data = pd.read_csv(dataset)

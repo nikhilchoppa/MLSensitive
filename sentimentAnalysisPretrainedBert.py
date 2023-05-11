@@ -1,11 +1,8 @@
 # Import required libraries
 import re
 import praw
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassification
-from datetime import datetime, timedelta
 import tensorflow as tf
 
 # Reddit API keys and access tokens
@@ -59,6 +56,11 @@ def sentiment_analysis(query):
     titles = get_titles(api, query)
     model, tokenizer = load_model()
 
+    # Check if titles list is empty
+    if not titles:
+        print(f"No titles found for subreddit: {query}")
+        return
+
     title_sentiments = {'positive': 0, 'negative': 0, 'neutral': 0}
     neutral_threshold = 0.05
 
@@ -80,7 +82,7 @@ def sentiment_analysis(query):
     title_sentiments_percentages = {k: v / len(titles) * 100 for k, v in title_sentiments.items()}
 
     # Print sentiment percentages
-    print("Sentiment analysis for", query)
+    print("Sentiment Analysis of pre-trained DistilBERT Model for", query)
     for sentiment, percentage in title_sentiments_percentages.items():
         print(f"{sentiment.capitalize()}: {percentage:.2f}%")
 
@@ -88,7 +90,8 @@ def sentiment_analysis(query):
     plt.pie(title_sentiments_percentages.values(), labels=title_sentiments_percentages.keys(), autopct='%1.1f%%',
             startangle=90)
     plt.axis('equal')
-    plt.title(f"Sentiment analysis for {query}")
+    plt.title(f"Sentiment Analysis of pre-trained DistilBERT Model for {query}")
     plt.show()
+    print('\nNote: This sentiment analysis might not accurately capture sarcasm or nuanced expressions of sentiment.')
 
 

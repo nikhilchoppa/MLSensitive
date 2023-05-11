@@ -1,77 +1,65 @@
 import numpy as np
 import pandas as pd
 import yfinance as yf
-import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error
-from tensorflow.python.keras.models import Sequential
-from tensorflow.python.keras.layers import Dense, LSTM
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
 
-# TODO: Might be best to just import entire package
-from tensorflow.python import keras
 
 def random_forest_pred(dataset):
-    # Load and preprocess the datas
-    # tesla_data = yf.Ticker('TSLA')
-    tesla_data = yf.Ticker(dataset)
+    # Load and preprocess the data
+    stk_data = yf.Ticker(dataset)
 
-    # history function helps to extract stock information.
-    # setting period parameter to max to get information for the maximum amount of time.
-    tsla_data = tesla_data.history(period='max')
+    # Extract stock information.
+    stock_data = stk_data.history(period='max')
 
     # Resetting the index
-    tsla_data.reset_index(inplace=True)
-
-    # display the first five rows
-    tsla_data.head()
+    stock_data.reset_index(inplace=True)
 
     #Handling missing values
-
-    data = tsla_data
+    data = stock_data
     data = data.drop(['Date', 'Dividends', 'Stock Splits'], axis=1)  # drop non-numeric columns
     data = data.fillna(data.mean())
     scaler = MinMaxScaler(feature_range=(0, 1))
     data_scaled = scaler.fit_transform(data)
+
+    # Calculate the daily return
+    data_scaled = pd.DataFrame(data_scaled, columns=data.columns)
+    data_scaled['Return'] = data_scaled['Close'].pct_change()
+    data_scaled.dropna(inplace=True)
+
+    # Classify the return as '1' if positive and '0' if not
+    data_scaled['Return'] = (data_scaled['Return'] > 0).astype(int)
+
     # Split the data into training and testing sets
     train_size = int(len(data_scaled) * 0.7)
     test_size = len(data_scaled) - train_size
-    train_data, test_data = data_scaled[0:train_size,:], data_scaled[train_size:len(data_scaled),:]
+    train_data, test_data = data_scaled.iloc[0:train_size,:], data_scaled.iloc[train_size:len(data_scaled),:]
 
-    # Define the LSTM model
-    # model_lstm = Sequential()
-    # model_lstm.add(LSTM(units=50, return_sequences=True, input_shape=(train_data.shape[1], 1)))
-    # model_lstm.add(LSTM(units=50))
-    # model_lstm.add(Dense(1))
-    # model_lstm.compile(loss='mean_squared_error', optimizer='adam')
-    # model_lstm.fit(train_data, train_data[:, 0], epochs=1, batch_size=1, verbose=2)
+    # 'Return' as target
+    train_y = train_data['Return']
+    test_y = test_data['Return']
 
-    # Make predictions using the LSTM model
-    # train_predict_lstm = model_lstm.predict(train_data)
-    # test_predict_lstm = model_lstm.predict(test_data)
-
-    # Evaluate the LSTM model
-    # mse_lstm = mean_squared_error(train_data[:, 0], train_predict_lstm[:, 0])
-    # rmse_lstm = np.sqrt(mse_lstm)
-    # print("RMSE of LSTM:", rmse_lstm)
+    # Rest of the data as input
+    train_X = train_data.drop('Return', axis=1)
+    test_X = test_data.drop('Return', axis=1)
 
     # Define the Random Forest model
-    model_rf = RandomForestRegressor(n_estimators=100, random_state=42)
-    model_rf.fit(train_data, train_data)
+    model_rf = RandomForestClassifier(n_estimators=100, random_state=42)
+    model_rf.fit(train_X, train_y)
 
     # Make predictions using the Random Forest model
-    train_predict_rf = model_rf.predict(train_data)
-    test_predict_rf = model_rf.predict(test_data)
+    train_predict_rf = model_rf.predict(train_X)
+    test_predict_rf = model_rf.predict(test_X)
 
     # Evaluate the Random Forest model
-    mse_rf = mean_squared_error(train_data, train_predict_rf)
-    rmse_rf = np.sqrt(mse_rf)
-    print("RMSE of Random Forest:", rmse_rf)
+    accuracy_rf = accuracy_score(test_y, test_predict_rf)
+    print("Accuracy of Random Forest:", accuracy_rf)
 
     # Classify the stock as either 'good' or 'poor'
-    if rmse_rf <= 0.05:
-        print("Random Forest RMSE: Performing Well.\n")
+    if accuracy_rf > 0.65:
+        print("Random Forest Accuracy: Performing Well.\n")
         return 1
-    elif rmse_rf > 0.1:
-        print("Random Forest RMSE: Performing Poorly.\n")
+    else:
+        print("Random Forest Accuracy: Performing Poorly.\n")
         return 0

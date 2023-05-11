@@ -1,11 +1,15 @@
-from arch.__future__ import reindexing
+import warnings
 import yfinance as yf
 import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from arch.utility.exceptions import ConvergenceWarning
 from tabulate import tabulate
 from arch import arch_model
+
+warnings.filterwarnings("ignore", "", ConvergenceWarning)
+
 
 def garch_pred(dataset):
     # ticker_symbol = input("Enter the stock ticker symbol :")
@@ -23,9 +27,8 @@ def garch_pred(dataset):
     tsla_data.head()
     tsla_data.set_index("Date", inplace=True)
 
-
-    fig,ax = plt.subplots(figsize=(8,4))
-    ax.spines[['top','right']].set_visible(False)
+    fig, ax = plt.subplots(figsize=(8, 4))
+    ax.spines[['top', 'right']].set_visible(False)
     # plt.plot(tsla_data['Close'], label = 'Daily Returns')
     # plt.legend(loc='upper right')
     # plt.title('Daily Returns Over Time')
@@ -41,15 +44,15 @@ def garch_pred(dataset):
 
     # BUILDING THE GARCH MODEL
 
-    garch_model = arch_model(tsla_data['Close'], p = 1, q = 1,
-                          mean = 'constant', vol = 'GARCH', dist = 'normal')
+    garch_model = arch_model(tsla_data['Close'], p=1, q=1,
+                             mean='constant', vol='GARCH', dist='normal')
 
     gm_result = garch_model.fit(disp='off')
     # print(gm_result.params)
 
     # print('\n')
 
-    gm_forecast = gm_result.forecast(horizon = 5)
+    gm_forecast = gm_result.forecast(horizon=5)
     # print(gm_forecast.variance[-1:])
 
     # Rolling Predictions
@@ -72,9 +75,9 @@ def garch_pred(dataset):
     # plt.title('Rolling Prediction')
 
     # Rolling Forecast
-    fig,ax = plt.subplots(figsize=(13,4))
+    fig, ax = plt.subplots(figsize=(13, 4))
     ax.grid(which="major", axis='y', color='#758D99', alpha=0.3, zorder=1)
-    ax.spines[['top','right']].set_visible(False)
+    ax.spines[['top', 'right']].set_visible(False)
     # plt.plot(tsla_data['Close'][-365:])
     # plt.plot(rolling_predictions)
     # plt.title(f"{dataset} Volatility Prediction - Rolling Forecast")
@@ -86,9 +89,8 @@ def garch_pred(dataset):
     sharpe_ratio = np.sqrt(252) * (returns.mean() / returns.std())
 
     if sharpe_ratio < 1:
-        print("Based on the Sharpe ratio, it is not a good time to invest.\n")
+        print("Based on the GARCH Sharpe ratio, it is not a good time to invest.\n")
         return 0
     else:
-        print("Based on the Sharpe ratio, it is a good time to invest.\n")
+        print("Based on the GARCH Sharpe ratio, it is a good time to invest.\n")
         return 1
-

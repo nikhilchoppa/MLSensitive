@@ -5,8 +5,8 @@ import regression
 import macd
 import svm
 import investorAnalysis
-# import sentimentAnalysis
-# import sentimentAnalysisPretrainedBert
+import sentimentAnalysis
+import sentimentAnalysisPretrainedBert
 import arima
 import garch
 import randomForest
@@ -68,10 +68,8 @@ def main():
         arima_result = arima.arima_pred(stock)
         garch_result = garch.garch_pred(stock)
         investor_analysis_result = investorAnalysis.get_recommendations(stock)
-
-        # TODO: Not working
-        # sentimentAnalysis.predict_sentiment(stock)
-        # sentimentAnalysisPretrainedBert.sentiment_analysis(stock)
+        sentimentAnalysis.sentiment_analysis_subreddit(stock)
+        sentimentAnalysisPretrainedBert.sentiment_analysis(stock)
 
         # Add all results to list
         results = [regression_result, macd_result, svm_result, arima_result, garch_result, investor_analysis_result]

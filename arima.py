@@ -11,9 +11,14 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.tsa.arima.model import ARIMA
+from statsmodels.tools.sm_exceptions import ValueWarning
 from pmdarima.arima import auto_arima
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import math
+
+# Suppress the value warning
+warnings.filterwarnings("ignore", message="No frequency information was provided", category=ValueWarning)
+
 
 def arima_pred(dataset):
     # ticker_symbol = input("Enter the Stock Symbol:")
@@ -164,8 +169,8 @@ def arima_pred(dataset):
 
     # Determine classification
     if mape < 0.25:
-        print('The stock is performing well.\n')
+        print('The stock is performing well according to ARIMA.\n')
         return 1
     else:
-        print('The stock is performing poorly.\n')
+        print('The stock is performing poorly according to ARIMA.\n')
         return 0
