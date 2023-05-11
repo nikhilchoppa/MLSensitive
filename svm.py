@@ -35,22 +35,22 @@ def svm_pred(dataset):
     # print('Accuracy:', accuracy)
 
     # Plot decision boundary
-    # TODO: Not sure if we want plots
-    # fig, ax = plt.subplots()
-    # ax.scatter(X_test.iloc[:, 0], X_test.iloc[:, 1], c=y_test)
-    # ax.set_xlabel('Open')
-    # ax.set_ylabel('High')
-    # ax.set_title('Stock Performance Classification')
-    # xlim = ax.get_xlim()
-    # ylim = ax.get_ylim()
-    # xx, yy = np.meshgrid(np.linspace(*xlim, num=200), np.linspace(*ylim, num=200))
-    # Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel(), np.zeros_like(xx.ravel()), np.zeros_like(
-    #     xx.ravel()), np.zeros_like(xx.ravel()), np.zeros_like(xx.ravel())])
-    # Z = Z.reshape(xx.shape)
-    # ax.contour(xx, yy, Z, levels=[0], colors='k')
-    # ax.set_xlim(xlim)
-    # ax.set_ylim(ylim)
-    # plt.show()
+
+    fig, ax = plt.subplots()
+    ax.scatter(X_test.iloc[:, 0], X_test.iloc[:, 1], c=y_test)
+    ax.set_xlabel('Open')
+    ax.set_ylabel('High')
+    ax.set_title('Stock Performance Classification')
+    xlim = ax.get_xlim()
+    ylim = ax.get_ylim()
+    xx, yy = np.meshgrid(np.linspace(*xlim, num=200), np.linspace(*ylim, num=200))
+    Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel(), np.zeros_like(xx.ravel()), np.zeros_like(
+        xx.ravel()), np.zeros_like(xx.ravel()), np.zeros_like(xx.ravel())])
+    Z = Z.reshape(xx.shape)
+    ax.contour(xx, yy, Z, levels=[0], colors='k')
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    plt.show()
 
     # Predict on full dataset
     y_pred_all = clf.predict(X)

@@ -1,4 +1,3 @@
-import os
 import warnings
 import numpy as np
 import pandas as pd
@@ -10,6 +9,8 @@ from statsmodels.tools.sm_exceptions import ValueWarning
 from pmdarima.arima import auto_arima
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import math
+
+warnings.filterwarnings('ignore')
 
 # Suppress the value warning
 warnings.filterwarnings("ignore", category=ValueWarning)
@@ -69,22 +70,17 @@ def arima_pred(dataset_path):
     # forecast
     forecast = fitted.forecast(len(test_data), alpha=0.05)
 
-
     fc_series = pd.Series(np.exp(forecast), index=test_data.index)
 
-    # Evaluation
-    mse = mean_squared_error(test_data_original_scale, forecast)
-    mae = mean_absolute_error(test_data_original_scale, forecast)
-    rmse = math.sqrt(mean_squared_error(test_data_original_scale, forecast))
-    mape = np.mean(np.abs(forecast - test_data_original_scale) / np.abs(test_data_original_scale))
+    # Handle NaN and inf values
+    test_data_original_scale = np.nan_to_num(test_data_original_scale)
+    fc_series = np.nan_to_num(fc_series)
 
-    # Determine classification
-    if mape < 0.25:
-        print('The stock is performing well according to ARIMA.\n')
-        return 1
-    else:
-        print('The stock is performing poorly according to ARIMA.\n')
-        return 0
+    # Evaluation
+    mse = mean_squared_error(test_data_original_scale, fc_series)
+    mae = mean_absolute_error(test_data_original_scale, fc_series)
+    rmse = math.sqrt(mean_squared_error(test_data_original_scale, fc_series))
+    mape = np.mean(np.abs(fc_series - test_data_original_scale) / np.abs(test_data_original_scale))
 
     # Visualizing the original and forecasted time series
     plt.figure(figsize=(12, 5), dpi=100)
@@ -102,6 +98,12 @@ def arima_pred(dataset_path):
     print(f'RMSE: {rmse}')
     print(f'MAPE: {mape}')
 
-
+    # Determine classification
+    if rmse > 150:
+        print('The stock is performing well according to ARIMA.\n')
+        return 1
+    else:
+        print('The stock is performing poorly according to ARIMA.\n')
+        return 0
 
 
