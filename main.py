@@ -61,19 +61,19 @@ def main():
                 - Each returns a classification or 'good' or 'poor' performance as a '0' or '1'
                 - The collection of the models predictions will be used to determine the final confidence level for investment
         '''
+
         regression_result = regression.regression_pred(stock_data)  # Pass the csv file to objects
         macd_result = macd.macd_pred(stock_data)
         svm_result = svm.svm_pred(stock_data)
-        randomForest.random_forest_pred(stock)
-        arima_result = arima.arima_pred(stock)
-        garch_result = garch.garch_pred(stock)
+        randomForest.random_forest_pred(stock_data)
+        arima_result = arima.arima_pred(stock_data)
+        garch_result = garch.garch_pred(stock_data)
         investor_analysis_result = investorAnalysis.get_recommendations(stock)
-        selfTrained_result = sentimentAnalysis.sentiment_analysis_subreddit(stock)
+        sentimentAnalysis.sentiment_analysis_subreddit(stock)
         bert_result = sentimentAnalysisPretrainedBert.sentiment_analysis(stock)
 
         # Add all results to list
-        results = [regression_result, macd_result, svm_result, arima_result, garch_result, investor_analysis_result,
-                   selfTrained_result, bert_result]
+        results = [regression_result, macd_result, svm_result, arima_result, garch_result, investor_analysis_result, bert_result]
         num_ones = sum(result == 1 for result in results)
         num_zeros = sum(result == 0 for result in results)
 

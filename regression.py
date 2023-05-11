@@ -40,18 +40,18 @@ def regression_pred(dataset):
     # Create prediction line
     f = model.predict(X).flatten()
 
-    # # Plot the data with the prediction line
-    # plt.scatter(data['Date'], data['Average'], label='Training Data')
-    # plt.plot(data['Date'], f, color="red", label='Predicted')
-    # # Get the dataset param as a string without the .csv appended
-    # # data_name, extension = os.path.splitext(dataset)
-    # file_name_with_extension = os.path.basename(dataset)
-    # data_name, _ = os.path.splitext(file_name_with_extension)
-    # plt.title(data_name + " Average Daily Stock Price (No adjustments)")
-    # plt.xlabel("Date")
-    # plt.ylabel("Average Daily Market Value")
-    # plt.legend()
-    # plt.show()
+    # Plot the data with the prediction line
+    plt.scatter(data['Date'], data['Average'], label='Training Data')
+    plt.plot(data['Date'], f, color="red", label='Predicted')
+    # Get the dataset param as a string without the .csv appended
+    # data_name, extension = os.path.splitext(dataset)
+    file_name_with_extension = os.path.basename(dataset)
+    data_name, _ = os.path.splitext(file_name_with_extension)
+    plt.title(data_name + " Average Daily Stock Price (No adjustments)")
+    plt.xlabel("Date")
+    plt.ylabel("Average Daily Market Value")
+    plt.legend()
+    plt.show()
 
     def calcVectorizedCost(x, y, theta):
         inner = np.dot(((x * theta) - y).T, (x * theta) - y)
@@ -83,16 +83,16 @@ def regression_pred(dataset):
     degree = 4
     y_pred, coef = nonlinear_regression(X, Y, degree)
 
-    # # Plot the data with the predicted line
-    # plt.scatter(data['Date'], data['Average'], label='Training Data')
-    # plt.plot(data['Date'], y_pred, color="red", label='Predicted')
-    # file_name_with_extension = os.path.basename(dataset)
-    # data_name, _ = os.path.splitext(file_name_with_extension)
-    # plt.title(data_name + f" Average Daily Stock Price (Degree {degree} polynomial)")
-    # plt.xlabel("Date")
-    # plt.ylabel("Average Daily Market Value")
-    # plt.legend()
-    # plt.show()
+    # Plot the data with the predicted line
+    plt.scatter(data['Date'], data['Average'], label='Training Data')
+    plt.plot(data['Date'], y_pred, color="red", label='Predicted')
+    file_name_with_extension = os.path.basename(dataset)
+    data_name, _ = os.path.splitext(file_name_with_extension)
+    plt.title(data_name + f" Average Daily Stock Price (Degree {degree} polynomial)")
+    plt.xlabel("Date")
+    plt.ylabel("Average Daily Market Value")
+    plt.legend()
+    plt.show()
 
     ''' 
     Non-Linear regression with Elastic Net
@@ -116,16 +116,16 @@ def regression_pred(dataset):
     # Mess with params, overall produces better fit after elastic net at same degree value
     y_pred, model_coef = nonlinear_regression_elastic(X, Y, degree=4, alpha=2, l1_ratio=0.5)
 
-    # # Plot the data and the predicted values
-    # plt.scatter(data['Date'], data['Average'], label='Training Data')
-    # plt.plot(data['Date'], y_pred, color='red', label='Predicted')
-    # file_name_with_extension = os.path.basename(dataset)
-    # data_name, _ = os.path.splitext(file_name_with_extension)
-    # plt.title(data_name + f" Average Daily Stock Price (Elastic Net, Degree {degree})")
-    # plt.xlabel('Date')
-    # plt.ylabel('Average Daily Market Value')
-    # plt.legend()
-    # plt.show()
+    # Plot the data and the predicted values
+    plt.scatter(data['Date'], data['Average'], label='Training Data')
+    plt.plot(data['Date'], y_pred, color='red', label='Predicted')
+    file_name_with_extension = os.path.basename(dataset)
+    data_name, _ = os.path.splitext(file_name_with_extension)
+    plt.title(data_name + f" Average Daily Stock Price (Elastic Net, Degree {degree})")
+    plt.xlabel('Date')
+    plt.ylabel('Average Daily Market Value')
+    plt.legend()
+    plt.show()
 
     '''
     Plotting for multiple degree values

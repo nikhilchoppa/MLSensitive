@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def macd_pred(csv_file_path):
@@ -30,7 +31,24 @@ def macd_pred(csv_file_path):
     # Make investment decision based on final return
     if final_return > 1:
         print("This stock has good returns\n")
-        return 1
+        decision = 1
     else:
         print("This stock has poor returns.\n")
-        return 0
+        decision = 0
+
+    # Plotting MACD and Signal line
+    plt.figure(figsize=(12,5))
+    plt.plot(df['MACD'], label='MACD', color = 'red')
+    plt.plot(df['Signal'], label='Signal Line', color='blue')
+    plt.title('MACD and Signal Line')
+    plt.legend(loc='upper left')
+    plt.show()
+
+    # Plotting Cumulative Returns
+    plt.figure(figsize=(12,5))
+    plt.plot(df['Cumulative_Returns'], label='Cumulative Returns', color = 'green')
+    plt.title('Cumulative Returns')
+    plt.legend(loc='upper left')
+    plt.show()
+
+    return decision

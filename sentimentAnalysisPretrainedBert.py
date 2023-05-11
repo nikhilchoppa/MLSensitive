@@ -6,9 +6,9 @@ from transformers import DistilBertTokenizer, TFDistilBertForSequenceClassificat
 import tensorflow as tf
 
 # Reddit API keys and access tokens
-client_id = 'GGIKF1inKH3_M-fidHcHoA'
-client_secret = '-XM0G4dX6eKi-ldvt4-a0hT7bPzQEQ'
-user_agent = 'ml2'
+client_id = 'YVirXu_Irg88reCzbFUubQ'
+client_secret = 'a5yIOot8qGHtZQAYhbCIVYrrJJPuyA'
+user_agent = 'ml3'
 username = 'Dazzling-Resident988'
 password = 'Nikhil009'
 

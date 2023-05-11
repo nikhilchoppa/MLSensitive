@@ -14,11 +14,15 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.callbacks import EarlyStopping
+import nltk
+
+# Download the vader_lexicon for sentiment analysis
+nltk.download('vader_lexicon')
 
 # Set up Reddit API credentials
-client_id = 'GGIKF1inKH3_M-fidHcHoA'
-client_secret = '-XM0G4dX6eKi-ldvt4-a0hT7bPzQEQ'
-user_agent = 'ml2'
+client_id = 'YVirXu_Irg88reCzbFUubQ'
+client_secret = 'a5yIOot8qGHtZQAYhbCIVYrrJJPuyA'
+user_agent = 'ml3'
 username = 'Dazzling-Resident988'
 password = 'Nikhil009'
 
@@ -190,10 +194,5 @@ def sentiment_analysis_subreddit(subreddit_name):
 
     print('\nNote: This sentiment analysis might not accurately capture sarcasm or nuanced expressions of sentiment.')
 
-    if positive_percentage > neutral_percentage * 0.5:
-        print(f"Based on Self-Trained sentiment analysis, ({query}) is performing well.")
-        return 1
-    else:
-        print(f"Based on Self-Trained sentiment analysis, ({query}) is performing poorly.")
-        return 0
+
 

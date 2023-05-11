@@ -54,7 +54,7 @@ def get_recommendations(ticker):
     # print(dataframe)
 
     ax = dataframe.plot.bar(rot=0)
-    ax.set_title(f'({ticker}) Investor Recommendation Trends')
+    ax.set_title(f'({ticker}) Investors Recommendation Trends')
     ax.set_ylabel('Investors Recommendation Counts')
     plt.show()
 
