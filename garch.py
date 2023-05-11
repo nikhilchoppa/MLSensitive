@@ -1,3 +1,5 @@
+from arch.__future__ import reindexing
+reindexing.reindex = True
 import warnings
 import math
 import numpy as np
